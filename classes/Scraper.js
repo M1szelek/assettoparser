@@ -1,7 +1,8 @@
 const cheerio = require('cheerio');
 
-class Scraper{
+module.exports = class Scraper{
     constructor(htmlContent){
-        this.$ = cheerio.load(htmlContent);
+        this.content = cheerio.load(htmlContent);
     }
 }
+

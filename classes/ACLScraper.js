@@ -1,12 +1,14 @@
-class ACLScraper extends Scraper {
+const Scraper = require('./Scraper');
 
-    constructor(){
-        super();
-    }
+module.exports = class ACLScraper extends Scraper {
 
     parse(){
 
 
-        return 'json z rekordami z ACL'
+
+
+        return {
+            result: 'result'
+        }
     }
 }
