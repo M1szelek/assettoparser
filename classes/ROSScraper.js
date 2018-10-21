@@ -1,5 +1,5 @@
 class ROSScraper extends Scraper{
-    parse(htmlContent){
+    scrape(htmlContent){
 
     }
 }
