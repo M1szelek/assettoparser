@@ -7,12 +7,12 @@ const ACLDownloader = require('../classes/ACLDownloader');
 let index = async function(req, res, next){
 
 
+
     let ACLD = new ACLDownloader();
 
     try{
         let html = await ACLD.download();
         let ACLS = new ACLScraper(html);
-
         res.json(ACLS.scrape());
     }catch(err){
 
