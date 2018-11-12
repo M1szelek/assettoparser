@@ -1,9 +1,6 @@
 const Scraper = require('./Scraper');
 
 module.exports = class ACLScraper extends Scraper {
-
-
-
     scrape(){
         let count = this.$('tr').length;
         let result = [];
