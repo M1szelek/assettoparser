@@ -4,7 +4,10 @@ var router = express.Router();
 const ACLScraper = require('../classes/ACLScraper');
 const ACLDownloader = require('../classes/ACLDownloader');
 
-let index = async function(req, res, next){
+const ROSScraper = require('../classes/ROSScraper');
+const ROSDownloader = require('../classes/ROSDownloader');
+
+let acl = async function(req, res, next){
 
 
 
@@ -17,10 +20,26 @@ let index = async function(req, res, next){
     }catch(err){
 
     }
-}
+};
+
+let ros = async function(req, res, next){
+
+
+
+    let ROSD = new ROSDownloader();
+
+    try{
+        let html = await ROSD.download();
+        let ROSS = new ROSScraper(html);
+        res.json(ROSS.scrape());
+    }catch(err){
+
+    }
+};
 
 /* GET home page. */
-router.get('/', index);
+router.get('/acl', acl);
+router.get('/ros', ros);
 
 
 
