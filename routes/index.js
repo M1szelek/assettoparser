@@ -22,16 +22,21 @@ let acl = async function(req, res, next){
     }
 };
 
-let ros = async function(req, res, next){
+let ros = async function(req, res){
 
-
+    // res.render('ros', {data: [{
+    //         name: 'dupa',
+    //         team: 'dupa',
+    //         number: 666
+    //     }]});
 
     let ROSD = new ROSDownloader();
 
     try{
         let html = await ROSD.download();
         let ROSS = new ROSScraper(html);
-        res.json(ROSS.scrape());
+        let data = ROSS.scrape();
+        res.render('ros', {data});
     }catch(err){
 
     }
