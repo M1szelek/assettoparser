@@ -16,7 +16,8 @@ let acl = async function(req, res, next){
     try{
         let html = await ACLD.download();
         let ACLS = new ACLScraper(html);
-        res.json(ACLS.scrape());
+        let data = ACLS.scrape();
+        res.render('driversList', {data});
     }catch(err){
 
     }
@@ -24,19 +25,13 @@ let acl = async function(req, res, next){
 
 let ros = async function(req, res){
 
-    // res.render('ros', {data: [{
-    //         name: 'dupa',
-    //         team: 'dupa',
-    //         number: 666
-    //     }]});
-
     let ROSD = new ROSDownloader();
 
     try{
         let html = await ROSD.download();
         let ROSS = new ROSScraper(html);
         let data = ROSS.scrape();
-        res.render('ros', {data});
+        res.render('driversList', {data});
     }catch(err){
 
     }
