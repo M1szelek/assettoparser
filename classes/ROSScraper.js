@@ -21,7 +21,8 @@ module.exports = class ROSScraper extends Scraper{
                 number,
                 car,
                 driver,
-                team
+                team,
+                season: 'ROSST'
             }
 
             result.push(row);
