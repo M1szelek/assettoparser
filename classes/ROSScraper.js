@@ -2,7 +2,7 @@ const Scraper = require('./Scraper');
 
 module.exports = class ROSScraper extends Scraper{
 
-    scrape(html){
+    scrape(html,season){
 
         let $ = this.cheerio.load(html);
 
@@ -21,7 +21,7 @@ module.exports = class ROSScraper extends Scraper{
                 car,
                 driver,
                 team,
-                season: 'ROSST'
+                season
             }
 
             result.push(row);

@@ -11,10 +11,8 @@ module.exports = class Season {
 
     async driversList(){
         try{
-            console.log('drivers list');
-            console.log(this.url);
             let html = await this.downloader.download(this.url);
-            let drivers = this.scraper.scrape(html);
+            let drivers = this.scraper.scrape(html,this.season);
             this.repository.update(drivers,this.season);
             return drivers;
         }catch(err){
