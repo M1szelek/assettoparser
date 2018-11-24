@@ -25,6 +25,16 @@ let list = async function(req, res){
     }
 };
 
+let preq = async function(req, res){
+    try{
+        let season = getSeason(req.params.season);
+        let drivers = await season.preqList();
+        res.render('driversList', {drivers});
+    }catch(err){
+
+    }
+};
+
 // listRace();
 // listDrivers(season);
 // update(season);
@@ -36,7 +46,9 @@ router.get('/', (req,res) => {
    res.render('index');
 });
 
+router.get('/:season/preq', preq);
 router.get('/:season', list);
+
 
 
 

@@ -15,13 +15,17 @@ module.exports = class ROSScraper extends Scraper{
             let car = $(el).find('small:not(.d-block)').text().trim();
             let team = $(el).find('.d-block').text().trim();
             let driver = $(el).find('.card-title').text().trim();
+            let img = $(el).find('.card-img-top').attr('delayedsrc');
+
+            console.log(img);
 
             let row = {
                 number,
                 car,
                 driver,
                 team,
-                season
+                season,
+                img
             }
 
             result.push(row);

@@ -23,4 +23,14 @@ module.exports = class Repository {
             });
         });
     }
+
+    updatePreqEntries(preqEntries){
+        db.preqentry.bulkCreate(preqEntries)
+            .then(() => {
+                console.log('Data saved in DB')
+            }).catch(() => {
+                console.log('Error');
+        });
+
+    }
 };

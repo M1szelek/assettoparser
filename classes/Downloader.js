@@ -10,4 +10,4 @@ module.exports = class Downloader {
             console.log(err);
         }
     }
-}
+};
