@@ -14,6 +14,7 @@ module.exports = class Season {
         try{
             let html = await this.downloader.download(this.url);
             let drivers = this.scraper.scrape(html,this.season);
+            drivers = this.merge(drivers,[]);   //by now only for adding domain to img src
             //this.repository.update(drivers,this.season);
             return drivers;
         }catch(err){
