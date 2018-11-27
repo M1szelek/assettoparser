@@ -2,7 +2,7 @@ const Scraper = require('./Scraper');
 
 module.exports = class ROSScraper extends Scraper{
 
-    scrape(html,season){
+    scrape(html,season,domain){
 
         let $ = this.cheerio.load(html);
 
@@ -15,7 +15,7 @@ module.exports = class ROSScraper extends Scraper{
             let car = $(el).find('small:not(.d-block)').text().trim();
             let team = $(el).find('.d-block').text().trim();
             let driver = $(el).find('.card-title').text().trim();
-            let img = $(el).find('.card-img-top').attr('delayedsrc');
+            let img = domain + $(el).find('.card-img-top').attr('delayedsrc');
 
             console.log(img);
 

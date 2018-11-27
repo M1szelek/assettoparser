@@ -13,8 +13,7 @@ module.exports = class Season {
     async driversList(){
         try{
             let html = await this.downloader.download(this.url);
-            let drivers = this.scraper.scrape(html,this.season);
-            drivers = this.merge(drivers,[]);   //by now only for adding domain to img src
+            let drivers = this.scraper.scrape(html,this.season,this.domain);
             //this.repository.update(drivers,this.season);
             return drivers;
         }catch(err){
@@ -28,7 +27,7 @@ module.exports = class Season {
         try{
             let html = await this.downloader.download(this.preqUrl);
             let htmlr = await this.downloader.download(this.url);
-            let drivers = this.scraper.scrape(htmlr,this.season);
+            let drivers = this.scraper.scrape(htmlr,this.season,this.domain);
             let preqentries = this.preqScraper.scrape(html,this.season);
 
             preqentries = this.merge(drivers,preqentries);
@@ -46,7 +45,6 @@ module.exports = class Season {
 
         preqentries.forEach((preqentry) => {
             let driver = _.find(drivers, (driver) => { return driver.driver === preqentry.driver});
-            driver.img = this.domain + driver.img;
             result.push(Object.assign({}, preqentry, driver));
         });
 
