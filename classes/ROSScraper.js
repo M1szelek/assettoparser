@@ -17,8 +17,6 @@ module.exports = class ROSScraper extends Scraper{
             let driver = $(el).find('.card-title').text().trim();
             let img = domain + $(el).find('.card-img-top').attr('delayedsrc');
 
-            console.log(img);
-
             let row = {
                 number,
                 car,
