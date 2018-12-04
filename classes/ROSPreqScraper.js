@@ -13,7 +13,7 @@ module.exports = class ROSPreqScraper extends Scraper{
                 driver: driver.name,
                 time: driver.laptime,
                 theo: driver.theo,
-                diff: driver.diff,
+                diff: driver.diff.substring(3),
                 validlaps: driver.numlaps,
                 maxspeed: driver.maxspeed_kmh,
                 server: driver.server

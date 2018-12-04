@@ -1,6 +1,7 @@
 const Downloader = require('../classes/Downloader');
 const Repository = require('../classes/Repository');
 const _ = require('lodash');
+const arraySort = require('array-sort');
 
 module.exports = class Season {
 
@@ -39,15 +40,21 @@ module.exports = class Season {
             let drivers = this.scraper.scrape(htmlr,this.season,this.domain);
             let preqentries = this.preqScraper.scrape(html,this.season);
 
+            preqentries = this.addPreqPosition(preqentries);
+
             preqentries = this.merge(drivers,preqentries, 'driver');
 
-            if(this.generalScraper){
-                let htmlGeneral = await this.downloader.download(this.generalUrl);
-                let general = this.generalScraper.scrape(htmlGeneral);
-                preqentries = this.merge(general,preqentries,'driver');
-            }
+
+
+            // if(this.generalScraper){
+            //     let htmlGeneral = await this.downloader.download(this.generalUrl);
+            //     let general = this.generalScraper.scrape(htmlGeneral);
+            //     preqentries = this.merge(general,preqentries,'driver');
+            // }
 
             preqentries = this.removeDriversWithoutTimes(preqentries);
+
+            arraySort(preqentries, 'preqPosition');
 
             //this.repository.updatePreqEntries(preqentries,this.season);
             return preqentries;
@@ -82,8 +89,19 @@ module.exports = class Season {
 
     removeDriversWithoutTimes(drivers){
         return drivers.filter((driver) => {
-           return driver.time;
+           return driver.server === 'gold';
         });
+    }
+
+    addPreqPosition(drivers){
+        let result = [];
+
+        drivers.forEach((driver,i) => {
+            driver.preqPosition = i + 1;
+            result.push(driver);
+        });
+
+        return result;
     }
 
 
