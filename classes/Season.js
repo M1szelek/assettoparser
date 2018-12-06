@@ -22,9 +22,7 @@ module.exports = class Season {
     async driversList(){
         try{
             let html = await this.downloader.download(this.url);
-            let drivers = this.scraper.scrape(html,this.season,this.domain);
-            //this.repository.update(drivers,this.season);
-            return drivers;
+            return this.scraper.scrape(html,this.season,this.domain);
         }catch(err){
             console.log(err);
         }
@@ -42,17 +40,19 @@ module.exports = class Season {
 
             preqentries = this.addPreqPosition(preqentries);
 
-            preqentries = this.merge(drivers,preqentries, 'driver');
+            preqentries = this.merge(preqentries,drivers, 'driver');
 
 
 
-            // if(this.generalScraper){
-            //     let htmlGeneral = await this.downloader.download(this.generalUrl);
-            //     let general = this.generalScraper.scrape(htmlGeneral);
-            //     preqentries = this.merge(general,preqentries,'driver');
-            // }
+            if(this.generalScraper){
+                let htmlGeneral = await this.downloader.download(this.generalUrl);
+                let general = this.generalScraper.scrape(htmlGeneral);
+                preqentries = this.merge(preqentries,general,'driver');
+            }
 
-            preqentries = this.removeDriversWithoutTimes(preqentries);
+            //preqentries = this.removeDriversWithoutTimes(preqentries);
+
+
 
             arraySort(preqentries, 'preqPosition');
 

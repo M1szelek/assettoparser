@@ -16,4 +16,4 @@ module.exports = class ROSSeason extends Season{
             this.generalScraper = new GeneralScraper();
             this.season = 'ROSST';
     }
-}
+};

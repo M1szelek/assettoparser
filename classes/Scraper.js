@@ -4,5 +4,5 @@ module.exports = class Scraper{
     constructor(){
         this.cheerio = cheerio;
     }
-}
+};
 
