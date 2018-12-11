@@ -50,7 +50,7 @@ module.exports = class Season {
                 preqentries = this.merge(preqentries,general,'driver');
             }
 
-            //preqentries = this.removeDriversWithoutTimes(preqentries);
+            preqentries = this.removeDriversWithoutTimes(preqentries);
 
 
 
@@ -89,7 +89,7 @@ module.exports = class Season {
 
     removeDriversWithoutTimes(drivers){
         return drivers.filter((driver) => {
-           return driver.server === 'gold';
+           return driver.server === 'platinum';
         });
     }
 
