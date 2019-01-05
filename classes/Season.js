@@ -7,8 +7,6 @@ module.exports = class Season {
 
     constructor(){
         this.repository = new Repository();
-        this.downloader = new Downloader();
-
         this.domain = undefined;
         this.url = undefined;
         this.preqUrl = undefined;
@@ -21,7 +19,7 @@ module.exports = class Season {
 
     async driversList(){
         try{
-            let html = await this.downloader.download(this.url);
+            let html = await Downloader.download(this.url);
             return this.scraper.scrape(html,this.season,this.domain);
         }catch(err){
             console.log(err);
@@ -32,8 +30,8 @@ module.exports = class Season {
 
     async preqList(){
         try{
-            let html = await this.downloader.download(this.preqUrl);
-            let htmlr = await this.downloader.download(this.url);
+            let html = await Downloader.download(this.preqUrl);
+            let htmlr = await Downloader.download(this.url);
 
             let drivers = this.scraper.scrape(htmlr,this.season,this.domain);
             let preqentries = this.preqScraper.scrape(html,this.season);
@@ -45,12 +43,12 @@ module.exports = class Season {
 
 
             if(this.generalScraper){
-                let htmlGeneral = await this.downloader.download(this.generalUrl);
+                let htmlGeneral = await Downloader.download(this.generalUrl);
                 let general = this.generalScraper.scrape(htmlGeneral);
                 preqentries = this.merge(preqentries,general,'driver');
             }
 
-            preqentries = this.removeDriversWithoutTimes(preqentries);
+            //preqentries = this.removeDriversWithoutTimes(preqentries);
 
 
 

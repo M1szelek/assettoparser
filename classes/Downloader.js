@@ -1,11 +1,10 @@
-module.exports = class Downloader {
-    constructor(){
-        this.http = require('request-promise');
-    }
+const axios = require('axios');
 
-    async download(url) {
+module.exports = class Downloader {
+    static async download(url) {
         try{
-            return await this.http(url);
+            let response = await axios.get(url);
+            return response.data;
         }catch(err){
             console.log(err);
         }

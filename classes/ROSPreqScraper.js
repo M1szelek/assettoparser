@@ -4,8 +4,6 @@ module.exports = class ROSPreqScraper extends Scraper{
 
     scrape(html,season){
 
-        html = JSON.parse(html);
-
         let result = [];
 
         html.data.forEach((driver) => {
