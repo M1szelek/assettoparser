@@ -24,8 +24,6 @@ module.exports = class Season {
         }catch(err){
             console.log(err);
         }
-
-
     }
 
     async preqList(){
@@ -36,11 +34,8 @@ module.exports = class Season {
             let drivers = this.scraper.scrape(htmlr,this.season,this.domain);
             let preqentries = this.preqScraper.scrape(html,this.season);
 
-            preqentries = this.addPreqPosition(preqentries);
-
+            preqentries = this.addPreqPositionColumn(preqentries);
             preqentries = this.merge(preqentries,drivers, 'driver');
-
-
 
             if(this.generalScraper){
                 let htmlGeneral = await Downloader.download(this.generalUrl);
@@ -48,30 +43,20 @@ module.exports = class Season {
                 preqentries = this.merge(preqentries,general,'driver');
             }
 
-            //preqentries = this.removeDriversWithoutTimes(preqentries);
-
-
+            preqentries = this.filter(preqentries);
 
             arraySort(preqentries, 'preqPosition');
 
-            //this.repository.updatePreqEntries(preqentries,this.season);
             return preqentries;
         }catch(err){
             console.log(err);
         }
     }
 
-
-    // merge(drivers, preqentries){
-    //     let result = [];
-    //
-    //     preqentries.forEach((preqentry) => {
-    //         let driver = _.find(drivers, (driver) => { return driver.driver === preqentry.driver});
-    //         result.push(Object.assign({}, preqentry, driver));
-    //     });
-    //
-    //     return result;
-    // }
+    filter(drivers) {
+        console.log('Filter not implemented for this season');
+        return drivers;
+    }
 
     merge(aArr, bArr, key){
 
@@ -85,13 +70,7 @@ module.exports = class Season {
         return result;
     }
 
-    removeDriversWithoutTimes(drivers){
-        return drivers.filter((driver) => {
-           return driver.server === 'platinum';
-        });
-    }
-
-    addPreqPosition(drivers){
+    addPreqPositionColumn(drivers) {
         let result = [];
 
         drivers.forEach((driver,i) => {
